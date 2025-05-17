@@ -57,8 +57,9 @@ module.exports = {
     new Dotenv()
   ],
   resolve: {
+    // добавил точку в '*';
     extensions: [
-      '*',
+      '.*',
       '.js',
       '.jsx',
       '.ts',
