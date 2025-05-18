@@ -3,7 +3,6 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI, Preloader } from '@ui';
 import { useSelector } from '../../services/store';
 import { getBun, getItems } from '../../services/slices/constructorSlice';
-//import { getConstructorSelector } from '../../services/slices/constructorSlice';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */

@@ -8,10 +8,12 @@ import {
 
 import ingredientsSlice from '../services/slices/ingredientsSlice';
 import constructorSlice from '../services/slices/constructorSlice';
+import feedsSlice from '../services/slices/feedSlice';
 
-export const rootReducer = combineSlices({
+const rootReducer = combineSlices({
   ingredientsSlice,
-  constructorSlice
+  constructorSlice,
+  feedsSlice,
 });
 
 
