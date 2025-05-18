@@ -16,7 +16,7 @@ import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
-import { getIngredientsThunk } from '../../services/slice/ingredientsSlice';
+import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
 
 const App = () => {
   const dispatch = useDispatch();
