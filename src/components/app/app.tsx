@@ -25,8 +25,8 @@ const App = () => {
   const location = useLocation();
   const backgroundLocation = location.state?.background;
   const navigate = useNavigate();
-  const match = useMatch('');
-  console.log(match);
+  const matchFeed = useMatch(`/feed/:number`)?.params.number;
+  const matchOrder = useMatch(`/profile/orders/:number`)?.params.number;
 
   useEffect(() => {
     dispatch(getIngredientsThunk())
@@ -54,7 +54,7 @@ const App = () => {
             <Route
             path='/feed/:number'
             element={
-              <Modal title='' onClose={() => navigate(-1)}>
+              <Modal title={`#${matchFeed}`} onClose={() => navigate(-1)}>
                 <OrderInfo />
               </Modal>
             }
@@ -70,7 +70,7 @@ const App = () => {
           <Route
             path='/profile/orders/:number'
             element={<OnlyAuth component={
-              <Modal title='' onClose={() => navigate(-1)}>
+              <Modal title={`#${matchOrder}`} onClose={() => navigate(-1)}>
                 <OrderInfo />
               </Modal>
             }/>}
