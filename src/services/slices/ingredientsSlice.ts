@@ -46,3 +46,4 @@ export default ingredientsSlice.reducer;
 
 export const getIsLoading = (state: RootState) => state.ingredientsSlice.isLoading;
 export const getIngredients = (state: RootState) => state.ingredientsSlice.ingredients;
+export const getIngredientById = (id: string) => (state: RootState) => state.ingredientsSlice.ingredients.find((ingredient) => ingredient._id === id);

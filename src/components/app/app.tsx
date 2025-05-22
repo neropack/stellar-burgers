@@ -13,7 +13,7 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, useMatch } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
@@ -22,6 +22,11 @@ import { checkUserAuthThunk } from '../../services/slices/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const backgroundLocation = location.state?.background;
+  const navigate = useNavigate();
+  const match = useMatch('');
+  console.log(match);
 
   useEffect(() => {
     dispatch(getIngredientsThunk())
@@ -31,7 +36,7 @@ const App = () => {
   return (
     <div className={styles.app}>
       <AppHeader />
-      <Routes>
+      <Routes location={backgroundLocation || location}>
         {/* страницы */}
         <Route path='/' element={<ConstructorPage />} />
         <Route path='/feed' element={<Feed />} />
@@ -42,32 +47,38 @@ const App = () => {
         <Route path='/profile' element={<OnlyAuth component={<Profile />} />}/>
         <Route path='/profile/orders' element={<OnlyAuth component={<ProfileOrders />} />}/>
         <Route path='*' element={<NotFound404 />} />
-        {/* модальные окна */}
-        <Route
-          path='/feed/:number'
-          element={
-            <Modal title='' onClose={console.log}>
-              <OrderInfo />
-            </Modal>
-          }
-        />
-        <Route
-          path='/ingredients/:id'
-          element={
-            <Modal title='' onClose={console.log}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
-        <Route
-          path='/profile/orders/:number'
-          element={<OnlyAuth component={
-            <Modal title='' onClose={console.log}>
-              <OrderInfo />
-            </Modal>
-          }/>}
-        />
       </Routes>
+        {/* модальные окна */}
+        {backgroundLocation && 
+          <Routes >
+            <Route
+            path='/feed/:number'
+            element={
+              <Modal title='' onClose={() => navigate(-1)}>
+                <OrderInfo />
+              </Modal>
+            }
+          />
+          <Route
+            path='/ingredients/:id'
+            element={
+              <Modal title='Детали ингридиента' onClose={() => navigate(-1)}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path='/profile/orders/:number'
+            element={<OnlyAuth component={
+              <Modal title='' onClose={() => navigate(-1)}>
+                <OrderInfo />
+              </Modal>
+            }/>}
+          />
+          </Routes >
+        }
+        
+      
     </div>
     );
 }
