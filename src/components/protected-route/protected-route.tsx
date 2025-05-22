@@ -1,7 +1,7 @@
 import React from "react";
-import {useSelector} from '../../services/store';
-import {getIsAuthChecked, getUser} from '../../services/slices/userSlice';
-import {Navigate, useLocation} from "react-router-dom";
+import { useSelector } from '../../services/store';
+import { getIsAuthChecked, getUser } from '../../services/slices/userSlice';
+import { Navigate, useLocation } from "react-router-dom";
 import { Preloader } from "@ui";
 
 type TProtectedRouteProps = {
@@ -9,9 +9,8 @@ type TProtectedRouteProps = {
     component: React.JSX.Element;
 }
 
-const Protected = ({ onlyUnAuth = false, component}: TProtectedRouteProps): React.JSX.Element => {
+const Protected = ({ onlyUnAuth = false, component }: TProtectedRouteProps): React.JSX.Element => {
     const user = useSelector(getUser);
-    const isAuthChecked = useSelector(getIsAuthChecked);
     const location = useLocation();
 
     // url == "/profile", onlyUnAuth = false, user == null
@@ -20,9 +19,11 @@ const Protected = ({ onlyUnAuth = false, component}: TProtectedRouteProps): Reac
     // url == "/profile", onlyUnAuth = false, user != null
     // url == "/profile", onlyUnAuth = false, user == null
 
-    if (isAuthChecked) {
-        return <Preloader />;
-    }
+    // if (!isAuthChecked) {
+    //     if (location.pathname !== '/login') {
+    //         return <Preloader />;
+    //     }
+    // }
 
     if (!onlyUnAuth && !user) {
         // for authorized user, but user is unauthorized
@@ -39,9 +40,10 @@ const Protected = ({ onlyUnAuth = false, component}: TProtectedRouteProps): Reac
     // !onlyUnAuth && user for authorized and authorized
 
     return component;
+    // return <Navigate to='/login' state={{ from: location }} />;
 }
 
 export const OnlyAuth = Protected;
-export const OnlyUnAuth = ({component}: {component: React.JSX.Element}): React.JSX.Element => (
+export const OnlyUnAuth = ({ component }: { component: React.JSX.Element }): React.JSX.Element => (
     <Protected onlyUnAuth component={component} />
 );

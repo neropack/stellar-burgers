@@ -31,7 +31,7 @@ export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
       </div>
       <div className={styles.link_position_last}>
         {/* поменять ссылку в зависимости от того залогинен пользователь или нет */}
-        <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.link_active}` : styles.link} to={'/login'}>
+        <NavLink className={({ isActive }) => isActive ? `${styles.link} ${styles.link_active}` : styles.link} to={'/profile'}>
           <ProfileIcon type={'primary'} />
           <p className='text text_type_main-default ml-2'>
             {userName || 'Личный кабинет'}
