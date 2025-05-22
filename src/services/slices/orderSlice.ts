@@ -1,20 +1,23 @@
-import { getOrderByNumberApi } from "@api";
+import { getOrderByNumberApi, getOrdersApi } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOrder } from "@utils-types";
 import { RootState } from "../store";
 
 export const getOrderByNumberThunk = createAsyncThunk('order/getOrderByNumber', (id: number) => getOrderByNumberApi(id));
+export const getOrdersThunk = createAsyncThunk('order/getOrders', () => getOrdersApi());
 
 type TOrderState = {
     isLoading: boolean;
     error: null | string | undefined;
-    order: TOrder | null;
+    currentOrder: TOrder | null;
+    orders: TOrder[];
 }
 
 const initialState: TOrderState = {
     isLoading: false,
     error: null,
-    order: null
+    currentOrder: null,
+    orders: [],
 }
 
 const orderSlice = createSlice({
@@ -34,10 +37,26 @@ const orderSlice = createSlice({
             .addCase(getOrderByNumberThunk.fulfilled, (state, { payload }) => {
                 state.isLoading = false;
                 state.error = null;
-                state.order = payload.orders[0];
-            } )
+                state.currentOrder = payload.orders[0];
+            })
+            .addCase(getOrdersThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(getOrdersThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
+            })
+            .addCase(getOrdersThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                state.orders = action.payload;
+                console.log(action.payload)
+            })
     }
 })
 
 export default orderSlice.reducer;
-export const getOrderByNumber = (id: number) => (state: RootState) => state.orderSlice.order;
+
+export const getOrders = (state: RootState) => state.orderSlice.orders;
+export const getOrderByNumber = (id: number) => (state: RootState) => state.orderSlice.currentOrder;
