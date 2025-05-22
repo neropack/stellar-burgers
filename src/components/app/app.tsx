@@ -13,18 +13,19 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader, IngredientDetails, Modal, OrderInfo } from '@components';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { useEffect } from 'react';
 import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
 import { OnlyAuth, OnlyUnAuth } from '../protected-route/protected-route';
+import { checkUserAuthThunk } from '../../services/slices/userSlice';
 
 const App = () => {
   const dispatch = useDispatch();
-  const location = useLocation();
 
   useEffect(() => {
     dispatch(getIngredientsThunk())
+    dispatch(checkUserAuthThunk());
   }, [dispatch]);
 
   return (
