@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TUser } from "@utils-types"
 import { RootState } from "../store";
-import { loginUserApi, registerUserApi, TLoginData, TRegisterData } from "@api";
+import { loginUserApi, logoutApi, registerUserApi, TLoginData, TRegisterData, updateUserApi } from "@api";
 import { stat } from "fs";
-import { setCookie } from "../../utils/cookie";
+import { deleteCookie, setCookie } from "../../utils/cookie";
 
 type TUserState = {
     user: TUser | null;
@@ -21,6 +21,8 @@ const initialState: TUserState = {
 
 export const userRegisterThunk = createAsyncThunk('user/register', (data: TRegisterData) => registerUserApi(data));
 export const userLoginThunk = createAsyncThunk('user/login', (data: TLoginData) => loginUserApi(data));
+export const userLogoutThunk = createAsyncThunk('user/logout', logoutApi);
+export const userUpdateThunk = createAsyncThunk('user/update', (data: TRegisterData) => updateUserApi(data));
 
 export const userSlice = createSlice({
     name: 'user',
@@ -60,6 +62,38 @@ export const userSlice = createSlice({
                 state.error = null;
                 setCookie('accessToken', payload.accessToken);
                 localStorage.setItem('refreshToken', payload.refreshToken)
+            })
+            .addCase(userLogoutThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(userLogoutThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
+            })
+            .addCase(userLogoutThunk.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.isLoading = false;
+                state.isAuthChecked = false;
+                state.error = null;
+                state.user = null;
+                deleteCookie('accessToken');
+                localStorage.removeItem('refreshToken');
+            })
+            .addCase(userUpdateThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(userUpdateThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
+            })
+            .addCase(userUpdateThunk.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.isLoading = false;
+                state.error = null;
+                state.user = action.payload.user;
+                state.isAuthChecked = true;
             })
     }
 });
