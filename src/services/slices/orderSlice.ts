@@ -1,10 +1,11 @@
-import { getOrderByNumberApi, getOrdersApi } from "@api";
+import { getOrderByNumberApi, getOrdersApi, orderBurgerApi } from "@api";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TOrder } from "@utils-types";
 import { RootState } from "../store";
 
 export const getOrderByNumberThunk = createAsyncThunk('order/getOrderByNumber', (id: number) => getOrderByNumberApi(id));
 export const getOrdersThunk = createAsyncThunk('order/getOrders', () => getOrdersApi());
+export const orderBurgerThunk = createAsyncThunk('order/orderBuger', (order: string[]) => orderBurgerApi(order));
 
 type TOrderState = {
     isLoading: boolean;
@@ -23,7 +24,11 @@ const initialState: TOrderState = {
 const orderSlice = createSlice({
     name: 'order',
     initialState,
-    reducers: {},
+    reducers: {
+        clearCurrentOrder(state) {
+            state.currentOrder = null;
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getOrderByNumberThunk.pending, (state) => {
@@ -53,6 +58,21 @@ const orderSlice = createSlice({
                 state.orders = action.payload;
                 console.log(action.payload)
             })
+            .addCase(orderBurgerThunk.pending, (state) => {
+                state.isLoading = true;
+                state.error = null;
+            })
+            .addCase(orderBurgerThunk.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error = action.error.message;
+            })
+            .addCase(orderBurgerThunk.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error = null;
+                //state.currentOrder = action.payload;
+                console.log(action.payload)
+            })
+            
     }
 })
 
@@ -60,3 +80,6 @@ export default orderSlice.reducer;
 
 export const getOrders = (state: RootState) => state.orderSlice.orders;
 export const getOrderByNumber = (id: number) => (state: RootState) => state.orderSlice.currentOrder;
+export const getCurrentOrder = (state: RootState) => state.orderSlice.currentOrder;
+export const getIsOrderLoading = (state: RootState) => state.orderSlice.isLoading;
+export const clearCurrentOrder = orderSlice.actions.clearCurrentOrder;
