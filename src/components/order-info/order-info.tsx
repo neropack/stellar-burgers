@@ -5,7 +5,7 @@ import { TIngredient } from '@utils-types';
 import { useDispatch } from '../../services/store';
 import { getOrderByNumber, getOrderByNumberThunk } from '../../services/slices/orderSlice';
 import { useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector } from '../../services/store';
 import { getIngredients } from '../../services/slices/ingredientsSlice';
 
 export const OrderInfo: FC = () => {

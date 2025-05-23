@@ -44,8 +44,11 @@ const App = () => {
         <Route path='/register' element={<OnlyUnAuth component={<Register />} />} />
         <Route path='/forgot-password' element={<OnlyUnAuth component={<ForgotPassword />} />} />
         <Route path='/reset-password' element={<OnlyUnAuth component={<ResetPassword />} />} />
+        <Route path='/ingredients/:id' element={<OnlyUnAuth component={<IngredientDetails />} />} />
+        <Route path='/feed/:number' element={<OnlyUnAuth component={<OrderInfo />} />} />
         <Route path='/profile' element={<OnlyAuth component={<Profile />} />}/>
         <Route path='/profile/orders' element={<OnlyAuth component={<ProfileOrders />} />}/>
+        <Route path='/profile/orders/:number' element={<OnlyAuth component={<OrderInfo />} />}/>
         <Route path='*' element={<NotFound404 />} />
       </Routes>
         {/* модальные окна */}
@@ -77,8 +80,6 @@ const App = () => {
           />
           </Routes >
         }
-        
-      
     </div>
     );
 }

@@ -107,8 +107,12 @@ export const userSlice = createSlice({
             .addCase(checkUserAuthThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
-                state.isAuthChecked = true;
-                state.user = action.payload?.user;
+                if (action.payload) {
+                    state.isAuthChecked = action.payload.success;
+                    state.user = action.payload.user;
+                }
+                // при проверке авторизации добавляется в cookie no_auth_practicum_tracking_id
+                // из-за него ответ от сервера fulfilled вместо rejected??? надо проверить
             })
     }
 });
