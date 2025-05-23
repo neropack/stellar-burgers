@@ -49,7 +49,6 @@ export const userSlice = createSlice({
                 state.error = null;
                 setCookie('accessToken', payload.accessToken);
                 localStorage.setItem('refreshToken', payload.refreshToken)
-                console.log(payload);
             })
             .addCase(userLoginThunk.pending, (state) => {
                 state.isLoading = true;
@@ -92,7 +91,6 @@ export const userSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(userUpdateThunk.fulfilled, (state, action) => {
-                console.log(action.payload);
                 state.isLoading = false;
                 state.error = null;
                 state.user = action.payload.user;

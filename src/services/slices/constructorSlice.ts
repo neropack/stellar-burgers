@@ -29,7 +29,6 @@ export const constructorSlice = createSlice({
             }
         },
         removeItem: (state, action) => {
-            console.log(action);
             state.constructorItems = state.constructorItems.filter((item) => item.id != action.payload)
         },
         moveItemDown: (state, {payload}) => {
@@ -40,10 +39,14 @@ export const constructorSlice = createSlice({
             const index = state.constructorItems.findIndex(ingredient => ingredient._id === payload._id);
             [state.constructorItems[index], state.constructorItems[index - 1]] = [state.constructorItems[index - 1], state.constructorItems[index]];
         },
+        clearConstructor: (state) => {
+            state.bun = null;
+            state.constructorItems = [];
+        }
     },
 });
 
-export const { addItem, removeItem, moveItemUp, moveItemDown } = constructorSlice.actions;
+export const { addItem, removeItem, moveItemUp, moveItemDown, clearConstructor } = constructorSlice.actions;
 export default constructorSlice.reducer;
 
 export const getBun = (state: RootState) => state.constructorSlice.bun;

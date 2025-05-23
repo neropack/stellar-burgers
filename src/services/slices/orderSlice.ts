@@ -25,7 +25,7 @@ const orderSlice = createSlice({
     name: 'order',
     initialState,
     reducers: {
-        clearCurrentOrder(state) {
+        clearCurrentOrder: (state) => {
             state.currentOrder = null;
         }
     },
@@ -56,7 +56,6 @@ const orderSlice = createSlice({
                 state.isLoading = false;
                 state.error = null;
                 state.orders = action.payload;
-                console.log(action.payload)
             })
             .addCase(orderBurgerThunk.pending, (state) => {
                 state.isLoading = true;
@@ -69,8 +68,7 @@ const orderSlice = createSlice({
             .addCase(orderBurgerThunk.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.error = null;
-                //state.currentOrder = action.payload;
-                console.log(action.payload)
+                state.currentOrder = action.payload.order;
             })
             
     }
@@ -82,4 +80,4 @@ export const getOrders = (state: RootState) => state.orderSlice.orders;
 export const getOrderByNumber = (id: number) => (state: RootState) => state.orderSlice.currentOrder;
 export const getCurrentOrder = (state: RootState) => state.orderSlice.currentOrder;
 export const getIsOrderLoading = (state: RootState) => state.orderSlice.isLoading;
-export const clearCurrentOrder = orderSlice.actions.clearCurrentOrder;
+export const {clearCurrentOrder} = orderSlice.actions;

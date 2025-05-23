@@ -2,10 +2,10 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI, Preloader } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
-import { getBun, getItems } from '../../services/slices/constructorSlice';
+import { clearConstructor, getBun, getItems } from '../../services/slices/constructorSlice';
 import { getIsAuthChecked } from '../../services/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { clearCurrentOrder, getCurrentOrder, getIsOrderLoading, getOrderByNumber, orderBurgerThunk } from '../../services/slices/orderSlice';
+import { clearCurrentOrder, getCurrentOrder, getIsOrderLoading, orderBurgerThunk } from '../../services/slices/orderSlice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -35,6 +35,8 @@ export const BurgerConstructor: FC = () => {
   };
 
   const closeOrderModal = () => {
+    // надо было делать currentOrder в constructorSlice
+    dispatch(clearConstructor());
     dispatch(clearCurrentOrder());
   };
 
