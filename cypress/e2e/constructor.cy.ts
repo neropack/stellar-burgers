@@ -4,8 +4,8 @@ const URL = 'https://norma.nomoreparties.space/api';
 
 describe('Тест конструктора бургера', () => {
     beforeEach(() => {
-        setCookie('accessToken', 'Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4MmExZTkyYzJmMzBjMDAxY2IyNTA3MiIsImlhdCI6MTc0OTM4ODM1MiwiZXhwIjoxNzQ5Mzg5NTUyfQ.nope');
-        localStorage.setItem('refreshToken', '1c10c4f4bd3036ef2800d7c870043d9d9cf74564de5150a71c0694a604f9cnope');
+        setCookie('accessToken', 'kekusToken');
+        localStorage.setItem('refreshToken', 'kekusRefreshToken');
         cy.log(URL);
         cy.intercept('GET', `${URL}/auth/user`, { fixture: 'user.json' }).as('getUser');
         cy.intercept('GET', `${URL}/ingredients`, {fixture: 'ingredients.json'}).as('getIngredients');
@@ -23,10 +23,13 @@ describe('Тест конструктора бургера', () => {
         cy.visit('http://localhost:4000/');
     })
 
-    // it('Получение списка ингредиентов', () => {
-    //     cy.get('[data-cy="constructor"]').as('constructor');
+    it('Получение списка ингредиентов', () => {
+        cy.get('[data-cy="constructor"]').as('constructor');
+        cy.get('[data-cy="ingredient"]').eq(3).find('button').click();
+        cy.get('[data-cy="ingredient"]').eq(1).find('button').click();
 
 
-    //     cy.get('@constructor').should('contain', 'Что тут делает булка?');
-    // })
+        cy.get('@constructor').should('contain', 'Мясо бессмертных моллюсков Protostomia');
+        cy.get('@constructor').should('contain', 'Флюоресцентная булка R2-D3');
+    })
 })
