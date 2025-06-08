@@ -19,11 +19,7 @@ describe('Тест конструктора бургера', () => {
         localStorage.removeItem('refreshToken');
     });
 
-    it('hell yeah', () => {
-        cy.visit('http://localhost:4000/');
-    })
-
-    it('Получение списка ингредиентов', () => {
+    it('Получение списка ингредиентов в конструкторе', () => {
         cy.get('[data-cy="constructor"]').as('constructor');
         cy.get('[data-cy="ingredient"]').eq(3).find('button').click();
         cy.get('[data-cy="ingredient"]').eq(1).find('button').click();
@@ -31,5 +27,17 @@ describe('Тест конструктора бургера', () => {
 
         cy.get('@constructor').should('contain', 'Мясо бессмертных моллюсков Protostomia');
         cy.get('@constructor').should('contain', 'Флюоресцентная булка R2-D3');
+    });
+
+    it('Проверка модельного окна ингридиента', () => {
+        cy.get('[data-cy="ingredient"]').eq(3).click();
+        cy.get('[data-cy="modal"]').as('modal');
+
+        cy.get('@modal').should('exist');
+        cy.get('@modal').should('contain', 'Мясо бессмертных моллюсков Protostomia');
+
+        cy.get('[data-cy="close-modal"]').click();
+        cy.get('@modal').should('not.exist');
+
     })
 })
