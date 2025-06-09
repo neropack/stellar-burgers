@@ -121,3 +121,4 @@ export default userSlice.reducer;
 export const getUser = (state: RootState) => state.userSlice.user;
 export const getUserName = (state: RootState) => state.userSlice.user?.name;
 export const getIsAuthChecked = (state: RootState) => state.userSlice.isAuthChecked;
+export { initialState as userInitialState };

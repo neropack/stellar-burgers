@@ -81,3 +81,4 @@ export const getOrderByNumber = (id: number) => (state: RootState) => state.orde
 export const getCurrentOrder = (state: RootState) => state.orderSlice.currentOrder;
 export const getIsOrderLoading = (state: RootState) => state.orderSlice.isLoading;
 export const {clearCurrentOrder} = orderSlice.actions;
+export { initialState as orderInitialState };

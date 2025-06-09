@@ -55,3 +55,5 @@ export const getFeed = (state: RootState) => {
     }
     return feed;
 }
+
+export { initialState as feedsInitialState };

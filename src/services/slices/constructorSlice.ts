@@ -55,3 +55,4 @@ export default constructorSlice.reducer;
 
 export const getBun = (state: RootState) => state.constructorSlice.bun;
 export const getItems = (state: RootState) => state.constructorSlice.constructorItems;
+export {initialState as constructorInitialState };
