@@ -1,6 +1,6 @@
 import { setCookie, deleteCookie } from '../../src/utils/cookie';
 
-const URL = 'https://norma.nomoreparties.space/api';
+const URL = Cypress.env('BURGER_API_URL');
 
 describe('Тест конструктора бургера', () => {
     beforeEach(() => {
