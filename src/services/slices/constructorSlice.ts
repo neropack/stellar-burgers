@@ -3,7 +3,7 @@ import { TConstructorIngredient, TIngredient } from "@utils-types"
 import { RootState } from "../store";
 import { v4 as uuidv4 } from 'uuid';
 
- interface constructorState {
+ export interface constructorState {
     bun: TConstructorIngredient | null;
     constructorItems: TConstructorIngredient[];
  }
