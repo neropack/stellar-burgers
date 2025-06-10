@@ -1,5 +1,5 @@
 import { describe, test, expect } from "@jest/globals";
-import constructorReducer, { addItem, constructorInitialState, constructorState, removeItem } from "./constructorSlice";
+import constructorReducer, { addItem, constructorInitialState, constructorState, moveItemDown, moveItemUp, removeItem } from "./constructorSlice";
 import { v4 as uuidv4 } from 'uuid';
 import { TConstructorIngredient } from "@utils-types";
 
@@ -21,7 +21,7 @@ describe('Тест редьюсера конструктора', () => {
         image: "https://code.s3.yandex.net/react/code/bun-01.png",
         image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
         image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
-        id: '6'
+        id: '0'
     };
     initialState.constructorItems = [
         {
@@ -36,7 +36,7 @@ describe('Тест редьюсера конструктора', () => {
             image: "https://code.s3.yandex.net/react/code/meat-04.png",
             image_mobile: "https://code.s3.yandex.net/react/code/meat-04-mobile.png",
             image_large: "https://code.s3.yandex.net/react/code/meat-04-large.png",
-            id: '5'
+            id: '1'
         },
         {
             _id: "643d69a5c3f7b9001cfa0944",
@@ -50,7 +50,7 @@ describe('Тест редьюсера конструктора', () => {
             image: "https://code.s3.yandex.net/react/code/sauce-03.png",
             image_mobile: "https://code.s3.yandex.net/react/code/sauce-03-mobile.png",
             image_large: "https://code.s3.yandex.net/react/code/sauce-03-large.png",
-            id: '7'
+            id: '2'
         }
     ];
 
@@ -67,7 +67,7 @@ describe('Тест редьюсера конструктора', () => {
             image: "https://code.s3.yandex.net/react/code/bun-01.png",
             image_mobile: "https://code.s3.yandex.net/react/code/bun-01-mobile.png",
             image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
-        }
+        };
 
         const expectedState: constructorState = JSON.parse(JSON.stringify(initialState));
         expectedState.constructorItems.push({...ingredient, id: 'kekedId'});
@@ -91,5 +91,24 @@ describe('Тест редьюсера конструктора', () => {
         )
 
         expect(newState).toEqual(expectedState);
+    });
+
+    test('Изменение порядка ингридиентов в начинке вниз', () => {
+        const expectedState: constructorState = JSON.parse(JSON.stringify(initialState));
+        const id = 0;
+        [expectedState.constructorItems[id], expectedState.constructorItems[id + 1]] = [expectedState.constructorItems[id + 1], expectedState.constructorItems[id]];
+
+        const newStateDown = constructorReducer(initialState, moveItemDown(initialState.constructorItems[id]));
+
+        expect(newStateDown).toEqual(expectedState);
+    });
+    test('Изменение порядка ингридиентов в начинке вверх', () => {
+        const expectedState: constructorState = JSON.parse(JSON.stringify(initialState));
+        const id = 1;
+        [expectedState.constructorItems[id], expectedState.constructorItems[id - 1]] = [expectedState.constructorItems[id - 1], expectedState.constructorItems[id]];
+        
+        const newStateUp = constructorReducer(initialState, moveItemUp(initialState.constructorItems[id]));
+
+        expect(newStateUp).toEqual(expectedState);
     })
 });
