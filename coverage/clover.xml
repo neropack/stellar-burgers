@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1749583081974" clover="3.2.0">
-  <project timestamp="1749583081974" name="All files">
-    <metrics statements="692" coveredstatements="394" conditionals="13" coveredconditionals="12" methods="44" coveredmethods="9" elements="749" coveredelements="415" complexity="0" loc="692" ncloc="692" packages="3" files="8" classes="8"/>
+<coverage generated="1749583934645" clover="3.2.0">
+  <project timestamp="1749583934645" name="All files">
+    <metrics statements="692" coveredstatements="401" conditionals="16" coveredconditionals="15" methods="44" coveredmethods="9" elements="752" coveredelements="425" complexity="0" loc="692" ncloc="692" packages="3" files="8" classes="8"/>
     <package name="services">
       <metrics statements="34" coveredstatements="34" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="store.ts" path="D:\Yandex Practicum\11 спринт\stellar-burgers\src\services\store.ts">
@@ -43,7 +43,7 @@
       </file>
     </package>
     <package name="services.slices">
-      <metrics statements="376" coveredstatements="273" conditionals="13" coveredconditionals="12" methods="26" coveredmethods="9"/>
+      <metrics statements="376" coveredstatements="280" conditionals="16" coveredconditionals="15" methods="26" coveredmethods="9"/>
       <file name="constructorSlice.ts" path="D:\Yandex Practicum\11 спринт\stellar-burgers\src\services\slices\constructorSlice.ts">
         <metrics statements="58" coveredstatements="54" conditionals="9" coveredconditionals="8" methods="8" coveredmethods="5"/>
         <line num="1" count="1" type="stmt"/>
@@ -168,7 +168,7 @@
         <line num="59" count="1" type="stmt"/>
       </file>
       <file name="ingredientsSlice.ts" path="D:\Yandex Practicum\11 спринт\stellar-burgers\src\services\slices\ingredientsSlice.ts">
-        <metrics statements="51" coveredstatements="44" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="1"/>
+        <metrics statements="51" coveredstatements="51" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -197,18 +197,18 @@
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="28" count="1" type="stmt"/>
-        <line num="29" count="1" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="29" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
+        <line num="33" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
         <line num="36" count="1" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
+        <line num="37" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
         <line num="43" count="1" type="stmt"/>
